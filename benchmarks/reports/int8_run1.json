@@ -1,0 +1,438 @@
+{
+  "system": "vedasearch",
+  "device": "cpu",
+  "embed_device": "cpu",
+  "rerank_device": null,
+  "rerank_enabled": false,
+  "embed_batch": 256,
+  "index_type": "hnsw",
+  "hnsw_ef_search": 64,
+  "embed_backend": "onnx",
+  "embed_precision": "int8",
+  "embed_model": "BAAI/bge-small-en-v1.5",
+  "rerank_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "docs": 100000,
+  "queries": 15,
+  "warmup_rounds": 3,
+  "measured_rounds": 50,
+  "top_k_ann": 20,
+  "top_k_rerank": 5,
+  "aggregate_ms": {
+    "embed": {
+      "mean": 3.5,
+      "p50": 3.3,
+      "p95": 4.7,
+      "p99": 6.3,
+      "min": 2.4,
+      "max": 10.3
+    },
+    "ann": {
+      "mean": 0.36,
+      "p50": 0.3,
+      "p95": 0.5,
+      "p99": 0.75,
+      "min": 0.2,
+      "max": 1.5
+    },
+    "total": {
+      "mean": 3.86,
+      "p50": 3.7,
+      "p95": 5.2,
+      "p99": 6.9,
+      "min": 2.6,
+      "max": 10.8
+    }
+  },
+  "per_query_ms": {
+    "how do I reset my password": {
+      "embed": {
+        "mean": 3.11,
+        "p50": 3.1,
+        "p95": 3.55,
+        "p99": 3.85,
+        "min": 2.7,
+        "max": 3.9
+      },
+      "ann": {
+        "mean": 0.32,
+        "p50": 0.3,
+        "p95": 0.4,
+        "p99": 1.01,
+        "min": 0.2,
+        "max": 1.5
+      },
+      "total": {
+        "mean": 3.43,
+        "p50": 3.4,
+        "p95": 4.05,
+        "p99": 4.45,
+        "min": 3.0,
+        "max": 4.7
+      }
+    },
+    "refund policy for damaged items": {
+      "embed": {
+        "mean": 3.61,
+        "p50": 3.5,
+        "p95": 4.41,
+        "p99": 4.6,
+        "min": 3.0,
+        "max": 4.7
+      },
+      "ann": {
+        "mean": 0.37,
+        "p50": 0.4,
+        "p95": 0.5,
+        "p99": 0.7,
+        "min": 0.3,
+        "max": 0.9
+      },
+      "total": {
+        "mean": 3.97,
+        "p50": 3.8,
+        "p95": 4.96,
+        "p99": 5.15,
+        "min": 3.4,
+        "max": 5.2
+      }
+    },
+    "international shipping costs": {
+      "embed": {
+        "mean": 2.89,
+        "p50": 2.9,
+        "p95": 3.1,
+        "p99": 3.4,
+        "min": 2.5,
+        "max": 3.6
+      },
+      "ann": {
+        "mean": 0.29,
+        "p50": 0.3,
+        "p95": 0.4,
+        "p99": 0.4,
+        "min": 0.2,
+        "max": 0.4
+      },
+      "total": {
+        "mean": 3.17,
+        "p50": 3.2,
+        "p95": 3.45,
+        "p99": 3.75,
+        "min": 2.7,
+        "max": 3.9
+      }
+    },
+    "cancel subscription": {
+      "embed": {
+        "mean": 2.92,
+        "p50": 2.9,
+        "p95": 3.45,
+        "p99": 3.7,
+        "min": 2.4,
+        "max": 3.9
+      },
+      "ann": {
+        "mean": 0.28,
+        "p50": 0.3,
+        "p95": 0.4,
+        "p99": 0.4,
+        "min": 0.2,
+        "max": 0.4
+      },
+      "total": {
+        "mean": 3.2,
+        "p50": 3.15,
+        "p95": 3.75,
+        "p99": 4.05,
+        "min": 2.6,
+        "max": 4.2
+      }
+    },
+    "update billing information": {
+      "embed": {
+        "mean": 3.35,
+        "p50": 3.3,
+        "p95": 4.05,
+        "p99": 4.3,
+        "min": 2.5,
+        "max": 4.5
+      },
+      "ann": {
+        "mean": 0.32,
+        "p50": 0.3,
+        "p95": 0.4,
+        "p99": 0.5,
+        "min": 0.2,
+        "max": 0.5
+      },
+      "total": {
+        "mean": 3.66,
+        "p50": 3.6,
+        "p95": 4.4,
+        "p99": 4.6,
+        "min": 2.8,
+        "max": 4.8
+      }
+    },
+    "two factor authentication setup": {
+      "embed": {
+        "mean": 4.37,
+        "p50": 3.9,
+        "p95": 6.52,
+        "p99": 9.8,
+        "min": 3.2,
+        "max": 10.0
+      },
+      "ann": {
+        "mean": 0.42,
+        "p50": 0.4,
+        "p95": 0.7,
+        "p99": 0.9,
+        "min": 0.3,
+        "max": 1.0
+      },
+      "total": {
+        "mean": 4.79,
+        "p50": 4.3,
+        "p95": 7.11,
+        "p99": 10.15,
+        "min": 3.6,
+        "max": 10.4
+      }
+    },
+    "delete my account permanently": {
+      "embed": {
+        "mean": 4.49,
+        "p50": 4.1,
+        "p95": 5.86,
+        "p99": 8.34,
+        "min": 3.6,
+        "max": 10.3
+      },
+      "ann": {
+        "mean": 0.48,
+        "p50": 0.5,
+        "p95": 0.65,
+        "p99": 0.7,
+        "min": 0.3,
+        "max": 0.7
+      },
+      "total": {
+        "mean": 4.97,
+        "p50": 4.6,
+        "p95": 6.47,
+        "p99": 8.84,
+        "min": 4.1,
+        "max": 10.8
+      }
+    },
+    "export my data": {
+      "embed": {
+        "mean": 3.61,
+        "p50": 3.5,
+        "p95": 4.31,
+        "p99": 6.0,
+        "min": 3.0,
+        "max": 6.0
+      },
+      "ann": {
+        "mean": 0.41,
+        "p50": 0.4,
+        "p95": 0.5,
+        "p99": 0.6,
+        "min": 0.3,
+        "max": 0.6
+      },
+      "total": {
+        "mean": 4.02,
+        "p50": 3.9,
+        "p95": 4.75,
+        "p99": 6.4,
+        "min": 3.3,
+        "max": 6.4
+      }
+    },
+    "change email address": {
+      "embed": {
+        "mean": 4.02,
+        "p50": 3.6,
+        "p95": 6.1,
+        "p99": 8.22,
+        "min": 3.1,
+        "max": 9.2
+      },
+      "ann": {
+        "mean": 0.37,
+        "p50": 0.4,
+        "p95": 0.5,
+        "p99": 0.55,
+        "min": 0.3,
+        "max": 0.6
+      },
+      "total": {
+        "mean": 4.39,
+        "p50": 4.05,
+        "p95": 6.5,
+        "p99": 8.57,
+        "min": 3.5,
+        "max": 9.5
+      }
+    },
+    "bulk order discount": {
+      "embed": {
+        "mean": 3.46,
+        "p50": 3.4,
+        "p95": 3.91,
+        "p99": 4.31,
+        "min": 2.9,
+        "max": 4.6
+      },
+      "ann": {
+        "mean": 0.41,
+        "p50": 0.4,
+        "p95": 0.5,
+        "p99": 0.7,
+        "min": 0.3,
+        "max": 0.9
+      },
+      "total": {
+        "mean": 3.86,
+        "p50": 3.8,
+        "p95": 4.35,
+        "p99": 4.96,
+        "min": 3.3,
+        "max": 5.5
+      }
+    },
+    "warranty claim process": {
+      "embed": {
+        "mean": 3.21,
+        "p50": 3.15,
+        "p95": 3.8,
+        "p99": 3.95,
+        "min": 2.7,
+        "max": 4.1
+      },
+      "ann": {
+        "mean": 0.33,
+        "p50": 0.3,
+        "p95": 0.45,
+        "p99": 0.75,
+        "min": 0.2,
+        "max": 1.0
+      },
+      "total": {
+        "mean": 3.54,
+        "p50": 3.45,
+        "p95": 4.2,
+        "p99": 4.6,
+        "min": 2.9,
+        "max": 4.6
+      }
+    },
+    "track my package": {
+      "embed": {
+        "mean": 3.07,
+        "p50": 3.0,
+        "p95": 3.65,
+        "p99": 4.11,
+        "min": 2.5,
+        "max": 4.5
+      },
+      "ann": {
+        "mean": 0.38,
+        "p50": 0.4,
+        "p95": 0.55,
+        "p99": 0.8,
+        "min": 0.2,
+        "max": 0.8
+      },
+      "total": {
+        "mean": 3.44,
+        "p50": 3.4,
+        "p95": 4.2,
+        "p99": 4.75,
+        "min": 2.8,
+        "max": 5.0
+      }
+    },
+    "integrate with third party apps": {
+      "embed": {
+        "mean": 3.27,
+        "p50": 3.2,
+        "p95": 3.82,
+        "p99": 4.35,
+        "min": 2.9,
+        "max": 4.5
+      },
+      "ann": {
+        "mean": 0.37,
+        "p50": 0.4,
+        "p95": 0.45,
+        "p99": 0.7,
+        "min": 0.2,
+        "max": 0.7
+      },
+      "total": {
+        "mean": 3.64,
+        "p50": 3.6,
+        "p95": 4.35,
+        "p99": 4.75,
+        "min": 3.2,
+        "max": 4.9
+      }
+    },
+    "contact customer support by phone": {
+      "embed": {
+        "mean": 3.58,
+        "p50": 3.5,
+        "p95": 4.41,
+        "p99": 4.5,
+        "min": 2.8,
+        "max": 4.5
+      },
+      "ann": {
+        "mean": 0.32,
+        "p50": 0.3,
+        "p95": 0.4,
+        "p99": 0.65,
+        "min": 0.2,
+        "max": 0.7
+      },
+      "total": {
+        "mean": 3.9,
+        "p50": 3.85,
+        "p95": 4.81,
+        "p99": 5.05,
+        "min": 3.0,
+        "max": 5.2
+      }
+    },
+    "gift card balance check": {
+      "embed": {
+        "mean": 3.54,
+        "p50": 3.4,
+        "p95": 4.25,
+        "p99": 4.55,
+        "min": 3.0,
+        "max": 4.7
+      },
+      "ann": {
+        "mean": 0.33,
+        "p50": 0.3,
+        "p95": 0.5,
+        "p99": 0.5,
+        "min": 0.2,
+        "max": 0.5
+      },
+      "total": {
+        "mean": 3.87,
+        "p50": 3.7,
+        "p95": 4.65,
+        "p99": 4.85,
+        "min": 3.2,
+        "max": 5.0
+      }
+    }
+  }
+}

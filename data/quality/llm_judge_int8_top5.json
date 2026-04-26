@@ -1,0 +1,229 @@
+{
+  "config": {
+    "precision": "int8",
+    "index_type": "hnsw",
+    "top_k": 5,
+    "judge_model": "llama-3.1-8b-instant",
+    "n_queries": 15,
+    "n_judgments": 74,
+    "n_failed": 1
+  },
+  "metrics": {
+    "mean_relevance": 1.23,
+    "frac_>=4": 0.0,
+    "frac_>=3": 0.0,
+    "any_relevant_rate": 0.0
+  },
+  "per_query": [
+    {
+      "query": "how do I reset my password",
+      "scores": [
+        2,
+        1,
+        2,
+        1,
+        2
+      ],
+      "mean": 1.6,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Cryptographic protocols ensure secure data transmission across untrusted networks (variant 3066, context 20669)"
+    },
+    {
+      "query": "refund policy for damaged items",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Reinforcement learning agents learn optimal strategies through trial and error interactions (variant 50822, context 9399..."
+    },
+    {
+      "query": "international shipping costs",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Machine learning algorithms optimize parameters through iterative training on labeled datasets (variant 85990, context 5..."
+    },
+    {
+      "query": "cancel subscription",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Reinforcement learning agents learn optimal strategies through trial and error interactions (variant 2022, context 76888..."
+    },
+    {
+      "query": "update billing information",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Reinforcement learning agents learn optimal strategies through trial and error interactions (variant 45043, context 5884..."
+    },
+    {
+      "query": "two factor authentication setup",
+      "scores": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mean": 2.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Cryptographic protocols ensure secure data transmission across untrusted networks (variant 14092, context 49610)"
+    },
+    {
+      "query": "delete my account permanently",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Real-time stream processing handles continuous data flows with low-latency guarantees (variant 60180, context 60669)"
+    },
+    {
+      "query": "export my data",
+      "scores": [
+        null,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mean": 2.0,
+      "any_relevant@k": false,
+      "all_relevant@k": null,
+      "top1_text_preview": "Real-time stream processing handles continuous data flows with low-latency guarantees (variant 11832, context 36535)"
+    },
+    {
+      "query": "change email address",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Natural language processing enables computers to understand and generate human language (variant 45555, context 54455)"
+    },
+    {
+      "query": "bulk order discount",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Reinforcement learning agents learn optimal strategies through trial and error interactions (variant 50822, context 9399..."
+    },
+    {
+      "query": "warranty claim process",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Reinforcement learning agents learn optimal strategies through trial and error interactions (variant 11164, context 9177..."
+    },
+    {
+      "query": "track my package",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Anomaly detection systems identify unusual patterns that deviate from expected behavior (variant 79587, context 45418)"
+    },
+    {
+      "query": "integrate with third party apps",
+      "scores": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "mean": 2.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Federated learning enables model training across decentralized devices without sharing data (variant 29098, context 1397..."
+    },
+    {
+      "query": "contact customer support by phone",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Reinforcement learning agents learn optimal strategies through trial and error interactions (variant 66969, context 2122..."
+    },
+    {
+      "query": "gift card balance check",
+      "scores": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "mean": 1.0,
+      "any_relevant@k": false,
+      "all_relevant@k": false,
+      "top1_text_preview": "Real-time stream processing handles continuous data flows with low-latency guarantees (variant 93797, context 61712)"
+    }
+  ]
+}

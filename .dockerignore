@@ -1,0 +1,35 @@
+# keep the build context small + don't leak local state into the image
+.git/
+.gitignore
+.venv/
+venv/
+env/
+.env
+.env.local
+.env.*.local
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+*.egg-info/
+build/
+dist/
+
+.vscode/
+.idea/
+.claude/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Skip the (large, regenerable) runtime artifacts — they live on a volume
+data/
+*.log
+bench_report*.json
+!benchmarks/reports/*.json
+
+# Skip OS junk
+.DS_Store
+Thumbs.db
+desktop.ini

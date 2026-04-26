@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>OpenRAG embed demo</title>
+<style>
+  body {
+    margin: 0; padding: 60px 24px; font: 16px/1.55 system-ui, sans-serif;
+    background: #f6f7f9; color: #222;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font-weight: 600; }
+  pre {
+    background: #0f1115; color: #e8e8e8; padding: 16px; border-radius: 8px;
+    overflow-x: auto; font-size: 13px;
+  }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .note { color: #555; font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>OpenRAG embed demo</h1>
+    <p>The chat bubble in the bottom-right corner is the OpenRAG widget. Click it.</p>
+
+    <h3>Add it to your own site</h3>
+    <pre><code>&lt;script src="<span id="host"></span>/embed.js"
+        data-openrag-url="<span id="host2"></span>"
+        data-openrag-title="Ask our docs"
+        data-openrag-color="#22d3ee"
+        data-openrag-position="bottom-right"
+        async&gt;&lt;/script&gt;</code></pre>
+
+    <p class="note">
+      For this to work from a different origin, set <code>CORS_ORIGINS</code> in your
+      OpenRAG server's <code>.env</code> to include your site
+      (e.g.&nbsp;<code>CORS_ORIGINS=https://your-site.com</code>).
+    </p>
+  </div>
+
+  <script>
+    // Fill in the current host so the snippet above is copy-pasteable.
+    document.getElementById("host").textContent = location.origin;
+    document.getElementById("host2").textContent = location.origin;
+  </script>
+
+  <!-- Live widget. data-openrag-url defaults to the current origin. -->
+  <script src="/embed.js"
+          data-openrag-title="Ask anything"
+          data-openrag-color="#22d3ee"
+          data-openrag-greeting="Hi! This is the OpenRAG demo widget — ask anything indexed on this server."
+          async></script>
+  <script>
+    // The widget reads data-openrag-url from its own tag; set it dynamically
+    // so the demo works whether served at localhost:8000 or behind a proxy.
+    document.currentScript.previousElementSibling.setAttribute(
+      "data-openrag-url", location.origin
+    );
+  </script>
+</body>
+</html>

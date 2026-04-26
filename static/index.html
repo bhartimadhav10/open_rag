@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>OpenRAG</title>
+<style>
+  :root {
+    --bg: #0d0d0d;
+    --fg: #e8e8e8;
+    --dim: #666;
+    --mute: #2a2a2a;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --cyan: #22d3ee;
+    --panel: #151515;
+    --border: #262626;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 24px;
+    background: var(--bg); color: var(--fg);
+    font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  }
+  h1 { font-weight: 600; letter-spacing: 0.02em; margin: 0 0 8px; }
+  .sub { color: var(--dim); font-size: 13px; margin-bottom: 18px; }
+  .row { display: flex; gap: 8px; margin-bottom: 18px; }
+  input[type=text] {
+    flex: 1; padding: 11px 14px;
+    background: var(--panel); color: var(--fg);
+    border: 1px solid var(--border); border-radius: 8px;
+    font-size: 15px; outline: none;
+  }
+  input[type=text]:focus { border-color: var(--cyan); }
+  button {
+    padding: 11px 22px;
+    background: var(--cyan); color: #002; border: none; border-radius: 8px;
+    font-weight: 600; cursor: pointer; font-size: 14px;
+  }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.ghost { background: transparent; color: var(--dim); border: 1px solid var(--border); }
+
+  .dashboard {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; margin-bottom: 16px;
+  }
+  .col h3 {
+    margin: 0 0 10px; font-size: 11px; letter-spacing: 0.15em;
+    color: var(--dim); text-transform: uppercase;
+  }
+  .stage {
+    display: grid; grid-template-columns: 16px 1fr 90px 16px;
+    gap: 10px; align-items: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 13px; padding: 4px 0;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--dim); animation: pulse 0.8s ease-in-out infinite;
+  }
+  .dot.done { background: var(--green); animation: none; }
+  .dot.active { background: var(--amber); }
+  @keyframes pulse { 0%,100% { opacity: 0.3 } 50% { opacity: 1 } }
+
+  .bar { height: 6px; background: var(--mute); border-radius: 3px; overflow: hidden; }
+  .fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--cyan), var(--green));
+    transition: width 220ms ease-out;
+  }
+  .ms { text-align: right; color: var(--dim); }
+  .ms.done { color: var(--green); }
+  .check { color: var(--green); opacity: 0; transition: opacity 180ms ease-out; }
+  .check.show { opacity: 1; }
+
+  .footline {
+    grid-column: span 2; display: flex; justify-content: space-between;
+    padding-top: 12px; margin-top: 6px; border-top: 1px solid var(--border);
+    font-family: ui-monospace, monospace; font-size: 13px;
+  }
+  .footline .label { color: var(--dim); }
+  .footline .val { color: var(--green); font-weight: 600; }
+  .e2e .val { font-size: 16px; }
+
+  .sources {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 16px; font-family: ui-monospace, monospace; font-size: 12.5px;
+  }
+  .sources h3 { margin: 0 0 8px; font-size: 11px; color: var(--dim); letter-spacing: 0.15em; }
+  .src { padding: 4px 0; color: #ccc; }
+  .src .score { color: var(--amber); }
+  .src .name { color: var(--cyan); }
+
+  #answer {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px; min-height: 60px; line-height: 1.55; font-size: 15px;
+    white-space: pre-wrap;
+  }
+  #answer::after {
+    content: "▌"; color: var(--cyan); animation: blink 1s steps(1) infinite;
+  }
+  #answer.done::after { content: ""; }
+  @keyframes blink { 50% { opacity: 0 } }
+
+  .meta {
+    display: flex; gap: 14px; font-size: 12px; color: var(--dim);
+    font-family: ui-monospace, monospace; margin-top: 10px;
+  }
+  .meta code { color: var(--cyan); }
+</style>
+</head>
+<body>
+  <h1>OpenRAG</h1>
+  <div class="sub">Stateful RAG · live timing · ONNX INT8 retrieval + Groq</div>
+
+  <div class="row">
+    <input id="q" type="text" placeholder="Ask a question…" autofocus />
+    <button id="ask">Ask</button>
+    <button id="reset" class="ghost" title="Reset conversation">Reset</button>
+  </div>
+
+  <div class="dashboard">
+    <div class="col">
+      <h3>Retrieval</h3>
+      <div class="stage" data-stage="embed">
+        <span class="dot"></span>
+        <div>
+          <div>Embedding</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <span class="ms">—</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="stage" data-stage="ann">
+        <span class="dot"></span>
+        <div>
+          <div>ANN search</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <span class="ms">—</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="stage" data-stage="rerank">
+        <span class="dot"></span>
+        <div>
+          <div>Reranking</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <span class="ms">—</span>
+        <span class="check">✓</span>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>LLM Generation</h3>
+      <div class="stage" data-stage="ttft">
+        <span class="dot"></span>
+        <div>
+          <div>Time to first token</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <span class="ms">—</span>
+        <span class="check">✓</span>
+      </div>
+      <div class="stage" data-stage="gen">
+        <span class="dot"></span>
+        <div>
+          <div>Total generation</div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <span class="ms">—</span>
+        <span class="check">✓</span>
+      </div>
+    </div>
+
+    <div class="footline">
+      <div><span class="label">Retrieval total:</span> <span class="val" id="retrieval-total">—</span></div>
+      <div class="e2e"><span class="label">END TO END:</span> <span class="val" id="e2e">—</span></div>
+    </div>
+  </div>
+
+  <div class="sources" id="sources" style="display:none">
+    <h3>Sources retrieved</h3>
+    <div id="sources-list"></div>
+  </div>
+
+  <div id="answer"></div>
+
+  <div class="meta">
+    <div>session: <code id="sid">—</code></div>
+    <div id="status">idle</div>
+  </div>
+
+<script>
+  const $ = (s) => document.querySelector(s);
+  const qInput = $("#q");
+  const askBtn = $("#ask");
+  const resetBtn = $("#reset");
+  const answerEl = $("#answer");
+  const statusEl = $("#status");
+  const sidEl = $("#sid");
+
+  let sessionId = localStorage.getItem("openrag_session") || null;
+  if (sessionId) sidEl.textContent = sessionId;
+
+  let es = null;
+
+  function resetStage(stage) {
+    const row = document.querySelector(`[data-stage="${stage}"]`);
+    if (!row) return;
+    row.querySelector(".dot").className = "dot";
+    row.querySelector(".fill").style.width = "0%";
+    row.querySelector(".ms").textContent = "—";
+    row.querySelector(".ms").classList.remove("done");
+    row.querySelector(".check").classList.remove("show");
+  }
+
+  function markStageActive(stage) {
+    const row = document.querySelector(`[data-stage="${stage}"]`);
+    if (!row) return;
+    row.querySelector(".dot").className = "dot active";
+  }
+
+  function markStageDone(stage, ms, fraction) {
+    const row = document.querySelector(`[data-stage="${stage}"]`);
+    if (!row) return;
+    row.querySelector(".dot").className = "dot done";
+    row.querySelector(".fill").style.width = Math.round((fraction || 0) * 100) + "%";
+    const msEl = row.querySelector(".ms");
+    msEl.textContent = ms + " ms";
+    msEl.classList.add("done");
+    row.querySelector(".check").classList.add("show");
+  }
+
+  function resetAll() {
+    ["embed","ann","rerank","ttft","gen"].forEach(resetStage);
+    $("#retrieval-total").textContent = "—";
+    $("#e2e").textContent = "—";
+    $("#sources").style.display = "none";
+    $("#sources-list").innerHTML = "";
+    answerEl.textContent = "";
+    answerEl.classList.remove("done");
+  }
+
+  function renderSources(chunks) {
+    const list = $("#sources-list");
+    list.innerHTML = "";
+    chunks.forEach(c => {
+      const div = document.createElement("div");
+      div.className = "src";
+      const preview = (c.text || "").replace(/\s+/g, " ").slice(0, 90);
+      div.innerHTML = `[<span class="score">${c.rerank_score.toFixed(2)}</span>] <span class="name">${c.source}</span> — "${preview}${c.text.length > 90 ? "…" : ""}"`;
+      list.appendChild(div);
+    });
+    $("#sources").style.display = "block";
+  }
+
+  async function ask() {
+    const q = qInput.value.trim();
+    if (!q) return;
+    resetAll();
+    askBtn.disabled = true;
+    statusEl.textContent = "connecting…";
+    ["embed","ann","rerank"].forEach(markStageActive);
+
+    if (es) es.close();
+
+    const url = new URL("/stream", location.origin);
+    url.searchParams.set("q", q);
+    if (sessionId) url.searchParams.set("session_id", sessionId);
+    es = new EventSource(url.toString());
+
+    es.addEventListener("start", (e) => {
+      const d = JSON.parse(e.data);
+      sessionId = d.session_id;
+      localStorage.setItem("openrag_session", sessionId);
+      sidEl.textContent = sessionId;
+      statusEl.textContent = "retrieving…";
+    });
+
+    es.addEventListener("retrieval_done", (e) => {
+      const d = JSON.parse(e.data);
+      const total = d.retrieval_total_ms || 1;
+      markStageDone("embed",  d.embed_ms,  d.embed_ms / total);
+      markStageDone("ann",    d.ann_ms,    d.ann_ms / total);
+      markStageDone("rerank", d.rerank_ms, d.rerank_ms / total);
+      $("#retrieval-total").textContent = d.retrieval_total_ms + " ms";
+      renderSources(d.chunks || []);
+      markStageActive("ttft");
+      statusEl.textContent = "waiting for LLM…";
+    });
+
+    es.addEventListener("first_token", (e) => {
+      const d = JSON.parse(e.data);
+      markStageDone("ttft", d.llm_ttft_ms, 1);
+      markStageActive("gen");
+      answerEl.textContent += d.token;
+      statusEl.textContent = "streaming…";
+    });
+
+    es.addEventListener("token", (e) => {
+      const d = JSON.parse(e.data);
+      answerEl.textContent += d.token;
+    });
+
+    es.addEventListener("done", (e) => {
+      const d = JSON.parse(e.data);
+      if (d.llm_total_ms != null) markStageDone("gen", d.llm_total_ms, 1);
+      $("#e2e").textContent = d.end_to_end_ms + " ms";
+      answerEl.classList.add("done");
+      statusEl.textContent = "done";
+      askBtn.disabled = false;
+      es.close(); es = null;
+    });
+
+    es.onerror = () => {
+      statusEl.textContent = "stream error";
+      askBtn.disabled = false;
+      if (es) { es.close(); es = null; }
+    };
+  }
+
+  async function resetSession() {
+    if (!sessionId) return;
+    await fetch(`/sessions/${sessionId}/reset`, { method: "POST" });
+    statusEl.textContent = "session reset";
+    answerEl.textContent = "";
+  }
+
+  askBtn.addEventListener("click", ask);
+  resetBtn.addEventListener("click", resetSession);
+  qInput.addEventListener("keydown", (e) => { if (e.key === "Enter") ask(); });
+</script>
+</body>
+</html>

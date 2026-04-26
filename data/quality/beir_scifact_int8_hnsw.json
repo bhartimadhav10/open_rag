@@ -1,0 +1,19 @@
+{
+  "dataset": "scifact",
+  "split": "test",
+  "n_docs": 5183,
+  "n_queries": 300,
+  "config": {
+    "precision": "int8",
+    "index_type": "hnsw",
+    "top_k": 20,
+    "embed_model": "BAAI/bge-small-en-v1.5"
+  },
+  "metrics": {
+    "recall@5": 0.7578,
+    "recall@10": 0.8202,
+    "recall@20": 0.8747,
+    "mrr": 0.6733,
+    "ndcg@10": 0.7034
+  }
+}
